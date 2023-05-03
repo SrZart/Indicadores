@@ -32,16 +32,13 @@ def balance_table():
     contas['d_total_$'] = contas['d_cp_e'] + contas['d_lp_e']
     contas['d_cp%'] = round(contas['d_cp'] / contas['d_total'] * 100, 2).astype(str) + '%'
     contas['d_lp%'] = round(contas['d_lp'] / contas['d_total'] * 100, 2).astype(str) + '%'
-    contas['d_l/pl'] = round(contas['d_liquida'] / contas['pl'],2).astype(str)
-    contas['d_cp/LOP'] = round(contas['d_cp'] / contas['LOP'],2).astype(str)
-    contas['liquidez'] = round(contas['ativo_cp'] / contas['passivo_cp'],2).astype(str)
     contas['d_e%'] = round(contas['d_total_$'] / contas['d_total'] * 100, 2).astype(str) + '%'
     if len(contas) >= 5:
         contas['D_CAGR'] = round(((contas['d_total'].iloc[-1] / contas['d_total'].iloc[-5]) ** (1/5) - 1)*100, 2).astype(str) + '%' 
         contas['DL_CAGR'] = round(((contas['d_liquida'].iloc[-1] / contas['d_liquida'].iloc[-5]) ** (1/5) - 1)*100, 2).astype(str) + '%' 
     else:
-        contas['D_CAGR'] = 'Empresa não possui 5 anos de histórico'
-        contas['DL_CAGR'] = 'Empresa não possui 5 anos de histórico'
+        contas['D_CAGR'] = 'Sem histórico suficiente'
+        contas['DL_CAGR'] = 'Sem histórico suficiente'
     df_bt = pd.DataFrame()
     df_bt['Ativo Total'] = contas.groupby('DT_FIM_EXERC')['ativo'].sum().map('{:,.0f}'.format)
     df_bt['Caixa'] = contas.groupby('DT_FIM_EXERC')['caixa'].sum().map('{:,.0f}'.format)
@@ -55,12 +52,10 @@ def balance_table():
     df_bt['Divida curto prazo'] = contas.groupby('DT_FIM_EXERC')['d_cp%'].sum()
     df_bt['Divida longo prazo'] = contas.groupby('DT_FIM_EXERC')['d_lp%'].sum()
     df_bt['Divida em moeda estrangeira'] = contas.groupby('DT_FIM_EXERC')['d_e%'].sum()
-    df_bt['Dívida liquida/PL'] = contas.groupby('DT_FIM_EXERC')['d_l/pl'].sum()
-    df_bt['Dívida curto prazo/Lucro Operacional'] = contas.groupby('DT_FIM_EXERC')['d_cp/LOP'].sum()
-    df_bt['Liquidez corrente'] = contas.groupby('DT_FIM_EXERC')['liquidez'].sum()
     df_bt = df_bt.sort_index(ascending=False)   
     df_bt = df_bt.transpose()
     st._arrow_table(df_bt)
     st.subheader('CAGR últimos 5 anos:')
-    st.write('Dívida Total: ', contas['D_CAGR'].iloc[-1]) 
-    st.write('Dívida Liquida: ', contas['DL_CAGR'].iloc[-1]) 
+    st.markdown(f"""Dívida total: {contas['D_CAGR'].iloc[-1]} 
+                | Dívida liquida: {contas['DL_CAGR'].iloc[-1]}
+    """) 

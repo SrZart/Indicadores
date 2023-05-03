@@ -10,6 +10,7 @@ def indicadores():
     bpa = dt.arq_bpa.query("ORDEM_EXERC == 'ÚLTIMO' and CD_CVM == @ticker")
     bpp = dt.arq_bpp.query("ORDEM_EXERC == 'ÚLTIMO' and CD_CVM == @ticker")
     dfc = dt.arq_dfc.query("ORDEM_EXERC == 'ÚLTIMO' and CD_CVM == @ticker")
+    dva = dt.arq_dva.query("ORDEM_EXERC == 'ÚLTIMO' and CD_CVM == @ticker")
 
     contas = pd.DataFrame({
         'ativo': bpa.query("CD_CONTA == '1'").groupby('DT_FIM_EXERC')['VL_CONTA'].sum().astype(float),
@@ -27,19 +28,21 @@ def indicadores():
         'LB': dre.query("CD_CONTA == '3.03'").groupby('DT_FIM_EXERC')['VL_CONTA'].sum().astype(float),
         'LOP': dre.query("CD_CONTA == '3.05'").groupby('DT_FIM_EXERC')['VL_CONTA'].sum().astype(float),
         'LL': dre.query("CD_CONTA == '3.11'").groupby('DT_FIM_EXERC')['VL_CONTA'].sum().astype(float),
-        'dividendo': dfc.query("CD_CONTA == '6.03.05'").groupby('DT_FIM_EXERC')['VL_CONTA'].sum().astype(float),
+        'jsp': dva.query("CD_CONTA == '7.08.04.01'").groupby('DT_FIM_EXERC')['VL_CONTA'].sum().astype(float),
+        'dividendo': dva.query("CD_CONTA == '7.08.04.02'").groupby('DT_FIM_EXERC')['VL_CONTA'].sum().astype(float),
     })
     contas['caixa_total'] = contas['caixa'] + contas['ap_fin']
     contas['d_total'] = contas['d_cp'] + contas['d_lp']
     contas['d_liquida'] = contas['d_total'] - contas['caixa_total']
     contas['d_total_$'] = contas['d_cp_e'] + contas['d_lp_e']
+    contas['Dividendos e jsp'] = contas['dividendo'] + contas['jsp']
     contas['d_cp%'] = round(contas['d_cp'] / contas['d_total'] * 100, 2).astype(str) + '%'
     contas['d_lp%'] = round(contas['d_lp'] / contas['d_total'] * 100, 2).astype(str) + '%'
     contas['d_l/pl'] = round(contas['d_liquida'] / contas['pl'],2).astype(str)
     contas['d_cp/LOP'] = round(contas['d_cp'] / contas['LOP'],2).astype(str)
     contas['d_e%'] = round(contas['d_total_$'] / contas['d_total'] * 100, 2).astype(str) + '%'
     contas['ROIC'] = round(contas['LOP'] / (contas['ativo'] - (contas['caixa_total'] + contas['fornecedores'])) * 100, 2).astype(str) + '%'
-    contas['payout'] = round((contas['dividendo']*-1) / contas['LL'] * 100, 2).astype(str) + '%'
+    contas['payout'] = round(contas['Dividendos e jsp'] / contas['LL'] * 100, 2).astype(str) + '%'
     contas['MB'] = round(contas['LB'] / contas['Receita'] * 100, 2).astype(str) + '%'
     contas['ML'] = round(contas['LL'] / contas['Receita'] * 100, 2).astype(str) + '%'
     contas['MOP'] = round(contas['LOP'] / contas['Receita'] * 100, 2).astype(str) + '%'

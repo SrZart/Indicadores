@@ -27,10 +27,10 @@ def income_table():
         contas['C_CAGR'] = round(((contas['Custo'].iloc[-1] / contas['Custo'].iloc[-5]) ** (1/5) - 1)*100, 2).astype(str) + '%'
         contas['DVGA_CAGR'] = round(((contas['D_VGA'].iloc[-1] / contas['D_VGA'].iloc[-5]) ** (1/5) - 1)*100, 2).astype(str) + '%'
     else:
-        contas['R_CAGR'] = 'Empresa não possui 5 anos de histórico'
-        contas['LL_CAGR'] = 'Empresa não possui 5 anos de histórico'
-        contas['C_CAGR'] = 'Empresa não possui 5 anos de histórico'
-        contas['DVGA_CAGR'] = 'Empresa não possui 5 anos de histórico'
+        contas['R_CAGR'] = 'Sem histórico suficiente'
+        contas['LL_CAGR'] = 'Sem histórico suficiente'
+        contas['C_CAGR'] = 'Sem histórico suficiente'
+        contas['DVGA_CAGR'] = 'Sem histórico suficiente'
     df_it = pd.DataFrame()
     df_it['Receita'] = contas.groupby('DT_FIM_EXERC')['Receita'].sum().map('{:,.0f}'.format)
     df_it['Custo'] = contas.groupby('DT_FIM_EXERC')['Custo'].sum().map('{:,.0f}'.format)
@@ -46,7 +46,7 @@ def income_table():
     # cria tabela
     st._arrow_table(df_it)
     st.subheader('CAGR últimos 5 anos:')
-    st.write('Receita: ', contas['R_CAGR'].iloc[-1])
-    st.write('Custo: ', contas['C_CAGR'].iloc[-1])
-    st.write('Despesas VGA: ', contas['DVGA_CAGR'].iloc[-1])
-    st.write('Lucro liquido: ', contas['LL_CAGR'].iloc[-1]) 
+    st.markdown(f"""Receita: {contas['R_CAGR'].iloc[-1]} 
+                | Custo: {contas['C_CAGR'].iloc[-1]} 
+                | Despesa VGA: {contas['DVGA_CAGR'].iloc[-1]} 
+                | Lucro liquido: {contas['LL_CAGR'].iloc[-1]}""")

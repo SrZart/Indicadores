@@ -193,23 +193,28 @@ if 'Dados cia aberta' in init:
     if 'Baixar dados da CVM' in opcao1:
         cvm_data()
     if 'Análise Fundamentalista' in opcao1:
-        sa_opt = st.sidebar.selectbox(
-            '',
-            ['Resultado', 'Balanço patrimonial', 'Fluxo de caixa', 'Indicadores', 'Valuation']
-        )
-        if 'Resultado' in sa_opt:
-            st.header(sa_opt)
-            income_table()
-        if 'Balanço patrimonial' in sa_opt:
-            st.header(sa_opt)
-            balance_table()
-        if 'Fluxo de caixa' in sa_opt:
-            st.header(sa_opt)
-            clash_flow_table()
-        if 'Indicadores' in sa_opt:
-            st.header(sa_opt)
-            indicadores()
-        if 'Valuation' in sa_opt:
-            st.header(opcao1)
-            valuation()
+        val_tipo = st.radio(
+                'Selecione o setor',
+                ('Industria','Financeiro')
+            )
+        if 'Industria' in val_tipo:
+            sa_opt = st.sidebar.selectbox(
+                '',
+                ['Resultado', 'Balanço patrimonial', 'Fluxo de caixa', 'Indicadores', 'Valuation']
+            )
+            if 'Resultado' in sa_opt:
+                st.header(sa_opt)
+                income_table()
+            if 'Balanço patrimonial' in sa_opt:
+                st.header(sa_opt)
+                balance_table()
+            if 'Fluxo de caixa' in sa_opt:
+                st.header(sa_opt)
+                clash_flow_table()
+            if 'Indicadores' in sa_opt:
+                st.header(sa_opt)
+                indicadores()
+            if 'Valuation' in sa_opt:
+                st.header(opcao1)
+                valuation() 
 ###
