@@ -3,7 +3,7 @@ import streamlit as st
 import data as dt
 
 def clash_flow_table():
-    cia = st.selectbox('Empresa', dt.nome_cia)
+    cia = st.selectbox('Empresa', dt.nome_cia, label_visibility='collapsed')
     ticker = dt.arq_dre.loc[dt.arq_dre['DENOM_CIA'] == cia, 'CD_CVM'].iloc[0]
     dfc = dt.arq_dfc.query("ORDEM_EXERC == 'ÚLTIMO' and CD_CVM == @ticker")
     dva = dt.arq_dva.query("ORDEM_EXERC == 'ÚLTIMO' and CD_CVM == @ticker")

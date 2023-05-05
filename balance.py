@@ -3,7 +3,7 @@ import streamlit as st
 import data as dt
 
 def balance_table():
-    cia = st.selectbox('Empresa', dt.nome_cia)
+    cia = st.selectbox('Empresa', dt.nome_cia, label_visibility='collapsed')
     ticker = dt.arq_dre.loc[dt.arq_dre['DENOM_CIA'] == cia, 'CD_CVM'].iloc[0]
     dre = dt.arq_dre.query("ORDEM_EXERC == 'ÚLTIMO' and CD_CVM == @ticker")
     bpa = dt.arq_bpa.query("ORDEM_EXERC == 'ÚLTIMO' and CD_CVM == @ticker")

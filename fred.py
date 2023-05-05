@@ -13,7 +13,7 @@ def chart_spread():
     #Define o intervalo de data
     min_date = datetime.date(1950, 1, 1)
     start_date = st.sidebar.date_input('Data de inicio:',value=datetime.date(2018, 1, 1),min_value=min_date)
-    end_date = st.sidebar.date_input('Data de final:',)
+    end_date = st.sidebar.date_input('Data final:',)
     #Escolhe o tipo de gráfico
     grafico = st.radio(
         'Selecione o tipo de gráfico',
@@ -102,7 +102,7 @@ def chart_var_monet():
     #Define o intervalo de data
     min_date = datetime.date(1950, 1, 1)
     start_date = st.sidebar.date_input('Data de inicio:',value=datetime.date(2018, 1, 1),min_value=min_date)
-    end_date = st.sidebar.date_input('Data de final:',)
+    end_date = st.sidebar.date_input('Data final:',)
     #Escolhe o tipo de gráfico
     grafico = st.radio(
         'Selecione o tipo de gráfico',
@@ -143,7 +143,7 @@ def chart_fed_asset():
     #Define o intervalo de data
     min_date = datetime.date(1950, 1, 1)
     start_date = st.sidebar.date_input('Data de inicio:',value=datetime.date(2018, 1, 1),min_value=min_date)
-    end_date = st.sidebar.date_input('Data de final:',)
+    end_date = st.sidebar.date_input('Data final:',)
     #Escolhe o tipo de gráfico
     grafico = st.radio(
         'Selecione o tipo de gráfico',

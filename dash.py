@@ -6,19 +6,20 @@ from kpi import indicadores
 from cf import clash_flow_table 
 from cvm import cvm_data
 from fred import chart_spread, chart_var_monet, chart_fed_asset
+from cotacoes import cotações
 
 #Define a pagina no modo wide
 st.set_page_config(layout="wide")
 #Escolha dos gráficos a serem exibidos
 init = st.selectbox(
     'Selecione a opção desejada',
-    ['Indicadores enconômicos','Dados cia aberta'],
+    ['Indicadores enconômicos','Dados cia aberta','Cotações'],
 )
 #Inicia programa de indicadores econômicos
 if 'Indicadores enconômicos' in init:
     opcao = st.sidebar.selectbox(
         'Selecione o gráfico',
-        ['Spread taxa de juros','Variação monetária - EUA','Total de ativos do FED']) 
+        ['Spread taxa de juros','Variação monetária - EUA','Total de ativos do FED'], label_visibility='collapsed') 
     #chama função para criar gráfico do spread dos títulos americanos
     if 'Spread taxa de juros' in opcao:
         chart_spread()
@@ -32,7 +33,7 @@ if 'Indicadores enconômicos' in init:
 if 'Dados cia aberta' in init:
     opcao1 = st.sidebar.selectbox(
         'Selecione o gráfico',
-        ['Análise Fundamentalista','Baixar dados da CVM'])
+        ['Análise Fundamentalista','Baixar dados da CVM'],label_visibility='collapsed')
     if 'Baixar dados da CVM' in opcao1:
         cvm_data()
     if 'Análise Fundamentalista' in opcao1:
@@ -60,4 +61,6 @@ if 'Dados cia aberta' in init:
             if 'Valuation' in sa_opt:
                 st.header(opcao1)
                 valuation() 
-###
+#Inicia programa de cotações 
+if 'Cotações' in init:
+    cotações()
