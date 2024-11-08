@@ -63,4 +63,4 @@ def indicadores():
     df_ind['Dívida curto prazo/Lucro Operacional'] = contas.groupby('DT_FIM_EXERC')['d_cp/LOP'].sum()
     df_ind = df_ind.sort_index(ascending=False)   
     df_ind = df_ind.transpose()
-    st._arrow_table(df_ind)
+    st.table(df_ind)

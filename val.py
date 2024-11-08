@@ -84,8 +84,8 @@ def valuation():
 
     vp_ll = []
     for n in range(1, 6):
-        vp_ll = ((contas['LL'].iloc[-1] * payout) * (1 + g_ll)) / ((1 + wacc) ** n)
-        vp_ll.append(vp_ll)
+        vp_val = ((contas['LL'].iloc[-1] * payout) * (1 + g_ll)) / ((1 + wacc) ** n)
+        vp_ll.append(vp_val)
 
      # Calcular o valor presente da perpetuidade
     ll_5 = (contas['LL'].iloc[-1] * payout) * (1 + g) ** 5

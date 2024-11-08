@@ -54,7 +54,7 @@ def balance_table():
     df_bt['Divida em moeda estrangeira'] = contas.groupby('DT_FIM_EXERC')['d_e%'].sum()
     df_bt = df_bt.sort_index(ascending=False)   
     df_bt = df_bt.transpose()
-    st._arrow_table(df_bt)
+    st.table(df_bt)
     st.subheader('CAGR últimos 5 anos:')
     st.markdown(f"""Dívida total: {contas['D_CAGR'].iloc[-1]} 
                 | Dívida liquida: {contas['DL_CAGR'].iloc[-1]}

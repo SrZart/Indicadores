@@ -44,9 +44,9 @@ def income_table():
     df_it = df_it.sort_index(ascending=False)   
     df_it = df_it.transpose()
     # cria tabela
-    st._arrow_table(df_it)
+    st.table(df_it)
     st.subheader('CAGR últimos 5 anos:')
-    st.markdown(f"""Receita: {contas['R_CAGR'].iloc[-1]} 
-                | Custo: {contas['C_CAGR'].iloc[-1]} 
+    st.markdown(f"""Receita: {contas['R_CAGR'].iloc[-1]}
+                | Custo: {contas['C_CAGR'].iloc[-1]}
                 | Despesa VGA: {contas['DVGA_CAGR'].iloc[-1]} 
                 | Lucro liquido: {contas['LL_CAGR'].iloc[-1]}""")

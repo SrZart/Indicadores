@@ -108,7 +108,7 @@ def chart_var_monet():
         'Selecione o tipo de gráfico',
         ('Tipo 1', 'Tipo 2')
     )
-    m1_code = 'M1SL'  
+    m1_code = 'M2SL'  
         
     #Obtém os dados da variação monetária
     m1_hist = fred.get_series(m1_code, start_date, end_date)
@@ -121,7 +121,7 @@ def chart_var_monet():
     fig.update_layout(
         title='Variação monetária nos EUA',
         xaxis_title='Data',
-        yaxis_title='M1 Bilhões de dólares',
+        yaxis_title='M2 Bilhões de dólares',
         yaxis=dict(showgrid=False) 
     )
     fig.update_traces(hovertemplate='%{x}: $ %{y:,.2f}')  
